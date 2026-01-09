@@ -43,3 +43,31 @@ form.addEventListener('submit', e => {
     })
     .catch(error => console.error('Error!', error.message))
 })
+/* =========================
+   FEEDBACK FORM LOGIC
+========================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const feedbackForm = document.getElementById('feedbackForm');
+
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 1. Capture the data
+            const rating = document.querySelector('input[name="stars"]:checked')?.value || "No rating";
+            const email = document.getElementById('fb-email').value;
+            const message = document.getElementById('fb-message').value;
+
+            // 2. Log it to console (for testing)
+            console.log("Feedback Submitted:", { rating, email, message });
+
+            // 3. Update the UI to show a success message
+            this.innerHTML = `
+                <div style="text-align: center; padding: 40px; animation: fadeIn 0.5s ease;">
+                    <h2 style="color: var(--primary); margin-bottom: 10px;">Thank You!</h2>
+                    <p style="color: var(--text);">We've received your ${rating}-star feedback.</p>
+                </div>
+            `;
+        });
+    }
+});
